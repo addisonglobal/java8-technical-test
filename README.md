@@ -75,7 +75,7 @@ public interface IAsyncTokenService {
 
 }
 ```
-**Task:** Provide both implementations of _requestToken_ in terms of _authenticate_ and _issueToken_. By doing that, whoever implements the service will only need to implement _authenticate_ and _issueToken_.
+**Task:** Provide both implementations of _issueToken_ in terms of _authenticate_ and _requestToken_. By doing that, whoever implements the service will only need to implement _authenticate_ and _requestToken_.
 
 ### 2. Service Implementation
 
@@ -83,7 +83,7 @@ Provide an implementation for the following API, which **is different** from the
 ```java
 public interface ISimpleAsyncTokenService {
 
-  default CompletableFuture<UserToken> requestToken(Credentials credentials) {
+  default CompletableFuture<UserToken> issueToken(Credentials credentials) {
     throw new NotImplementedException(); //TODO: Implement this
   }
 
@@ -111,7 +111,7 @@ We prefer you to use an Actor Model implementation such as [Akka](https://akka.i
         * Example: `username: house => house_2017-01-01T10:00:00Z`
    * This logic has to be encapsulated in a separate Actor/Service/Module.
    
-3. Implement the *requestToken* function/method from the **SimpleAsyncTokenService** trait/interface in a way that:
+3. Implement the *issueToken* function/method from the **SimpleAsyncTokenService** trait/interface in a way that:
    * Its logic is encapsulated in an Actor/Service/Module.
    * It makes use of the previously defined actors/services/modules for authenticating users and granting tokens:
         * It will first use the validation of the *Credentials* to obtain a *User*.
